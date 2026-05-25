@@ -1,0 +1,34 @@
+<table class="w-full border-collapse text-sm">
+  <thead class="bg-primary text-primary-text">
+    <tr>
+      @for (column of columns(); track $index) {
+        <th class="px-4 py-2 text-left font-semibold">{{ column.label }}</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of items(); track $index) {
+      <tr class="border-b border-gray-200 hover:bg-primary-light/10">
+        @for (column of columns(); track $index) {
+          @if (actions().length > 0 && column.name === 'actions') {
+            <td class="px-4 py-2 max-w-40">
+              @for (action of actions(); track $index) {
+                <button
+                  class="mr-2 inline-flex items-center rounded bg-secondary px-3 py-1 text-sm text-white hover:bg-secondary-dark"
+                  (click)="action.callback(item)"
+                >
+                  @if (action.icon) {
+                    <i class="{{ action.icon }} mr-1"></i>
+                  }
+                  {{ action.label }}
+                </button>
+              }
+            </td>
+          } @else {
+            <td class="px-4 py-2">{{ item[column.name] }}</td>
+          }
+        }
+      </tr>
+    }
+  </tbody>
+</table>

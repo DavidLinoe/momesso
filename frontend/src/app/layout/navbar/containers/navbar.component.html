@@ -1,0 +1,17 @@
+<header class="sticky bg-primary text-primary-text z-10">
+  <nav class="flex items-center justify-between p-4">
+    <div class="text-xl font-bold">Enterprise Hub</div>
+    <ul class="flex space-x-4">
+      @for (item of navbarItems(); track item.id) {
+        <li>
+          <div
+            (click)="router.navigateByUrl(item.route)"
+            class="text-primary-text cursor-pointer hover:text-primary-light"
+          >
+            {{ item.label }}
+          </div>
+        </li>
+      }
+    </ul>
+  </nav>
+</header>

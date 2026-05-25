@@ -1,0 +1,45 @@
+<component-totalizer
+  [count]="(machinesFacade.count$ | async) ?? 0"
+  [title]="'Machines'"
+  [actions]="[
+    {
+      label: 'Create',
+      icon: '+',
+      callback: (item) => openCreateMachine(),
+    },
+  ]"
+></component-totalizer>
+
+<component-table
+  [items]="machinesFacade.machines$ | async"
+  [columns]="columns"
+  [actions]="[
+    {
+      label: 'Edit',
+      icon: 'edit',
+      callback: (item) => openEditMachine(item),
+    },
+    {
+      label: 'Delete',
+      icon: 'delete',
+      callback: (item) => deleteMachine(item),
+    },
+  ]"
+></component-table>
+
+<component-modal
+  [open]="open"
+  [buttons]="[
+    {
+      label: machineFormGroup.get('id')?.value ? 'Update' : 'Create',
+      disabled: false,
+      callback: (item) => submitMachine(),
+    },
+  ]"
+  (close)="open = false"
+  [title]="machineFormGroup.get('id')?.value ? 'Edit Machine' : 'Create Machine'"
+>
+  <feature-machines-component-machine-modal
+    [form]="machineFormGroup"
+  ></feature-machines-component-machine-modal>
+</component-modal>

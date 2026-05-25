@@ -1,0 +1,43 @@
+<component-totalizer
+  [count]="(usersFacade.count$ | async) ?? 0"
+  [title]="'Users'"
+  [actions]="[
+    {
+      label: 'Create',
+      icon: '+',
+      callback: (item) => openCreateUser(),
+    },
+  ]"
+></component-totalizer>
+
+<component-table
+  [items]="usersFacade.users$ | async"
+  [columns]="columns"
+  [actions]="[
+    {
+      label: 'Edit',
+      icon: 'edit',
+      callback: (item) => openEditUser(item),
+    },
+    {
+      label: 'Delete',
+      icon: 'delete',
+      callback: (item) => deleteUser(item),
+    },
+  ]"
+></component-table>
+
+<component-modal
+  [open]="open"
+  [buttons]="[
+    {
+      label: userFormGroup.get('id')?.value ? 'Update' : 'Create',
+      disabled: false,
+      callback: (item) => submitUser(),
+    },
+  ]"
+  (close)="open = false"
+  [title]="userFormGroup.get('id')?.value ? 'Edit User' : 'Create User'"
+>
+  <feature-users-component-user-modal [form]="userFormGroup"></feature-users-component-user-modal>
+</component-modal>

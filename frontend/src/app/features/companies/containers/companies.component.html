@@ -1,0 +1,33 @@
+<component-totalizer
+  [count]="(companiesFacade.count$ | async) ?? 0"
+  [title]="'Companies'"
+></component-totalizer>
+
+<component-table
+  [items]="companiesFacade.companies$ | async"
+  [columns]="columns"
+  [actions]="[
+    {
+      label: 'Edit',
+      icon: 'edit',
+      callback: (item) => openEditCompany(item),
+    }
+  ]"
+></component-table>
+
+<component-modal
+  [open]="open"
+  [buttons]="[
+    {
+      label: companyFormGroup.get('id')?.value ? 'Update' : 'Create',
+      disabled: false,
+      callback: (item) => submitCompany(),
+    },
+  ]"
+  (close)="open = false"
+  [title]="companyFormGroup.get('id')?.value ? 'Edit Company' : 'Create Company'"
+>
+  <feature-companies-component-company-modal
+    [form]="companyFormGroup"
+  ></feature-companies-component-company-modal>
+</component-modal>

@@ -1,0 +1,33 @@
+@if (open()) {
+  <div
+    class="absolute z-10 top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900/75 bg-opacity-50"
+  >
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+      <header class="flex justify-between items-center">
+        <h2 class="text-xl flex text-left font-bold mb-4"></h2>
+        {{ title() }}
+        <i
+          (click)="close.emit(true)"
+          class="cursor-pointer text-red-700 font-normal rotate-45 text-3xl"
+          >+</i
+        >
+      </header>
+
+      <ng-content> </ng-content>
+
+      <div class="flex justify-end space-x-2">
+        @if (buttons().length > 0) {
+          @for (button of buttons(); track button) {
+            <button
+              class="px-4 py-2 rounded hover:bg-gray-200"
+              (click)="button.callback(button)"
+              [disabled]="button.disabled"
+            >
+              {{ button.label }}
+            </button>
+          }
+        }
+      </div>
+    </div>
+  </div>
+}

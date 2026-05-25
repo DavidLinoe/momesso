@@ -1,0 +1,22 @@
+<header
+  class="flex justify-between items-center bg-primary-light text-primary-text p-4 rounded-tr-md rounded-tl-md"
+>
+  <h1>{{ title() }}</h1>
+
+  <aside class="flex gap-2 items-center justify-center">
+    @if (actions().length > 0) {
+      @for (action of actions(); track $index) {
+        <div class="">
+          <button
+            (click)="action.callback(action.label)"
+            class="bg-primary-main text-white rounded-md"
+          >
+            <i>{{ action.icon }}</i>
+          </button>
+        </div>
+      }
+    }
+
+    <p class="bg-primary-dark p-1.5 rounded-md">Total: {{ count() }}</p>
+  </aside>
+</header>
